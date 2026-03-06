@@ -1,8 +1,37 @@
 import streamlit as st
 import pandas as pd
-import sqlite3
 from datetime import datetime
 
+# 1. إعدادات الصفحة الاحترافية (تظهر في المتصفح)
+st.set_page_config(
+    page_title="ميزانيتي الذكية",
+    page_icon="💰", # يمكنك وضع إيموجي أو رابط صورة
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+# 2. كود سحري لجعل التطبيق يفتح كـ "تطبيق مستقل" على الأيفون والأندرويد
+st.markdown(
+    """
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        /* إخفاء شريط Streamlit العلوي لزيادة مساحة التطبيق */
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        
+        /* تحسين الخطوط والتنسيق للجوال */
+        .main {
+            background-color: #f8f9fa;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title("📊 لوحة تحكم ميزانيتي")
 # --- إعداد قاعدة البيانات ---
 def init_db():
     conn = sqlite3.connect('budget_data.db')
